@@ -48,6 +48,12 @@ TagManager:
   - name: Player
     uniqueID: 745269401
     locked: 0
+  - name: Item
+    uniqueID: 59531667
+    locked: 0
   - name: Platform
     uniqueID: 1256472853
+    locked: 0
+  - name: Shot
+    uniqueID: 4112858759
     locked: 0
