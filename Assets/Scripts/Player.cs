@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [SerializeField] float _maxHorizonalSpeed = 5;
+    [SerializeField] float _maxVerticalSpeed = 5;
     [SerializeField] float _jumpVelocity = 5;
     [SerializeField] float _jumpDuration = 0.5f;
     [SerializeField] Sprite _jumpSprite;
@@ -28,16 +29,18 @@ public class Player : MonoBehaviour
     public bool IsInWater;
     public bool IsOnSnow;
     public bool IsDucking;
+    public bool IsClimbing;
     public bool IsTouchingRightWall;
     public bool IsTouchingLeftWall;
 
     Animator _animator;
-    SpriteRenderer _spriteRenderer;
+
     AudioSource _audioSource;
     Rigidbody2D _rb;
     PlayerInput _playerInput;
 
     float _horizontal;
+    float _vertical;
     int _jumpRemaining;
     float _jumpEndTime;
 
@@ -55,11 +58,9 @@ public class Player : MonoBehaviour
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _animator = GetComponentInChildren<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
         _playerInput = GetComponent<PlayerInput>();
-
     }
 
     // Update is called once per frame
@@ -70,13 +71,11 @@ public class Player : MonoBehaviour
 
         UpdateMovement();
      
-        //UpdateAnimation();
+        UpdateAnimation();
         UpdateDirection();
     }
-
     void OnDrawGizmos()
     {
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         Gizmos.color = Color.red;
 
         Vector2 origin = new Vector2(transform.position.x, transform.position.y - _groundDetectionOffset);
@@ -170,6 +169,23 @@ public class Player : MonoBehaviour
             desiredHorizontal = 0;
         _duckCollider.enabled = IsDucking;
         _standingCollider.enabled = !IsDucking;*/
+        if (IsClimbing)
+        {
+            var desiredVertical = verticalInput * _maxVerticalSpeed;
+
+            if (desiredVertical > _vertical)
+            {
+                _vertical += acceleration * Time.deltaTime;
+                if (_vertical > desiredVertical)
+                    _vertical = desiredVertical;
+            }
+            else if (desiredVertical < _vertical)
+            {
+                _vertical -= acceleration * Time.deltaTime;
+                if (_vertical < desiredVertical)
+                    _vertical = desiredVertical;
+            }
+        }
 
         if (desiredHorizontal > _horizontal)
         {
@@ -191,6 +207,8 @@ public class Player : MonoBehaviour
 
         if (IsInWater)
             _rb.velocity = new Vector2(_rb.velocity.x, vertical);
+        else if (IsClimbing)
+            _rb.velocity = new Vector2(_horizontal, _vertical);
         else
             _rb.velocity = new Vector2(_horizontal, vertical);
     }
@@ -245,6 +263,7 @@ public class Player : MonoBehaviour
     {
         _animator.SetBool("Jump", !IsGrounded);
         _animator.SetBool("Move", _horizontal != 0f);
+        _animator.SetBool("IsClimbing", IsClimbing);
     }
 
     private void UpdateDirection()
@@ -296,5 +315,13 @@ public class Player : MonoBehaviour
     public void Bounce(Vector2 normal, float bounciness)
     {
         _rb.AddForce(-normal * bounciness);
+    }
+    public void SetIsClimbing(bool isClimbing) 
+    {
+        IsClimbing= isClimbing;
+    }
+    public void SetGravity(float gravity)
+    {
+        _rb.gravityScale = gravity;
     }
 }

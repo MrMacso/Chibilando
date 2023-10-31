@@ -39,7 +39,7 @@ Transform:
   m_Children:
   - {fileID: 3846212434629535865}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &870578086241376997
 SpriteRenderer:
@@ -250,8 +250,8 @@ MonoBehaviour:
   _knockbackVelocity: 300
   _duckCollider: {fileID: 446771988009888575}
   _standingCollider: {fileID: 1289273732236242511}
-  _groundDetectionOffset: 0.71
-  _wallDetectionDistance: 0.5
+  _groundDetectionOffset: 0.75
+  _wallDetectionDistance: 0.56
   _wallCheckPoints: 6
   _buffer: 0.33
   IsGrounded: 0
@@ -284,7 +284,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8ebc05702bc86f140ad14810d930cecb, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -414,7 +414,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6973384882919409802}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.467, y: -0.311, z: 0}
+  m_LocalPosition: {x: 0.496, y: -0.311, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
