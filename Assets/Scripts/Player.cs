@@ -262,8 +262,11 @@ public class Player : MonoBehaviour
     void UpdateAnimation()
     {
         _animator.SetBool("Jump", !IsGrounded);
-        _animator.SetBool("Move", _horizontal != 0f);
         _animator.SetBool("IsClimbing", IsClimbing);
+        if (IsClimbing)
+            _animator.SetBool("Move", _vertical != 0f);
+        else
+        _animator.SetBool("Move", _horizontal != 0f);
     }
 
     private void UpdateDirection()

@@ -8,6 +8,7 @@ public abstract class Item : MonoBehaviour
         if (playerInventory != null)
         {
             playerInventory.Pickup(this, true);
+            gameObject.transform.rotation = collision.transform.rotation;
         }
     }
     public abstract void Use();
