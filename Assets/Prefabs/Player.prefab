@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3812505464024584530}
   - component: {fileID: 8636489196666260294}
   - component: {fileID: 4980354273761928411}
+  - component: {fileID: 8122699684506893658}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -233,6 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHorizonalSpeed: 5
+  _maxVerticalSpeed: 5
   _jumpVelocity: 5
   _jumpDuration: 0.5
   _jumpSprite: {fileID: 21300000, guid: 926b6444498f3ad41a631949b2386d61, type: 3}
@@ -258,6 +260,7 @@ MonoBehaviour:
   IsInWater: 0
   IsOnSnow: 0
   IsDucking: 0
+  IsClimbing: 0
   IsTouchingRightWall: 0
   IsTouchingLeftWall: 0
 --- !u!114 &3812505464024584530
@@ -390,6 +393,14 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!81 &8122699684506893658
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2329565891714137253}
+  m_Enabled: 1
 --- !u!1 &6973384882919409802
 GameObject:
   m_ObjectHideFlags: 0
