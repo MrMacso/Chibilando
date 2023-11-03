@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
 
     public bool IsGrounded;
     public bool IsInWater;
+    private bool IsDeath;
     public bool IsOnSnow;
     public bool IsDucking;
     public bool IsClimbing;
@@ -63,17 +64,16 @@ public class Player : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
         _playerInput = GetComponent<PlayerInput>();
     }
-
-    // Update is called once per frame
     void Update()
     {
-        UpdateGrounding();
-        UpdateWallTouching();
-
-        UpdateMovement();
-     
-        UpdateAnimation();
-        UpdateDirection();
+        if (!IsDeath) 
+        {
+            UpdateGrounding();
+            UpdateWallTouching();
+            UpdateMovement();
+            UpdateAnimation();
+            UpdateDirection();
+        }
     }
     void OnEnable() => FindObjectOfType<CinemachineTargetGroup>()?.AddMember(transform, 1f, 1f);
     void OnDisable() => FindObjectOfType<CinemachineTargetGroup>()?.RemoveMember(transform);
@@ -329,5 +329,11 @@ public class Player : MonoBehaviour
     public void SetGravity(float gravity)
     {
         _rb.gravityScale = gravity;
+    }
+
+    public void PlayerDeath()
+    {
+        IsDeath = true;
+        _animator.SetBool("Death", IsDeath);
     }
 }
